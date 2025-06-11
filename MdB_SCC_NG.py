@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 import requests
 import json
 from io import StringIO
@@ -104,57 +102,6 @@ def load_screener_results(setup_name, output_file):
     except Exception as e:
         st.sidebar.error(f"Erreur lors du chargement de {output_file}: {e}")
     return []
-# @st.cache_data
-# def load_screener_results(setup_name, output_file):
-#     """Charge les résultats d'un screener spécifique"""
-#     base_url = "https://gist.github.com/traderLaval/e4e5eee8d610dcdcaf716a52624334bb/raw/"
-#     url = base_url + output_file
-
-#     print(f"je passe load_screener_result\n")
-#     try:
-#         response = requests.get(url)
-#         st.sidebar.write(f"URL: {url}")
-#         print(f"load_screener_results : URL: {url}")
-#         st.sidebar.write(f"Status: {response.status_code}")
-#         print(f"Status: {response.status_code}")
-
-#         if response.status_code == 200:
-#             # Afficher les premières lignes du fichier pour debug
-#             lines = response.text.split('\n')[:5]
-#             st.sidebar.write(f"Premières lignes de {output_file}:")
-#             print(f"Premières lignes de {output_file}:")
-#             for line in lines:
-#                 st.sidebar.write(f"  {line}")
-#                 print(f"  {line}")
-
-#             # Lire le CSV avec les bons paramètres
-#             screener_df = pd.read_csv(
-#                 StringIO(response.text),
-#                 sep=';',
-#                 comment='#',
-#                 encoding='utf-8',
-#                 on_bad_lines='warn'
-#             )
-
-#             st.sidebar.write(f"Shape: {screener_df.shape}")
-#             print(f"Shape: {screener_df.shape}")
-#             st.sidebar.write(f"Colonnes: {screener_df.columns.tolist()}")
-#             print(f"Colonnes: {screener_df.columns.tolist()}")
-
-#             # Retourner la liste des noms
-#             if 'Name' in screener_df.columns:
-#                 names = screener_df['Name'].dropna().tolist()
-#                 st.sidebar.write(f"Trouvé {len(names)} noms")
-#                 return names
-#             else:
-#                 st.sidebar.error(
-#                     f"Colonne 'Name' non trouvée. Colonnes: {screener_df.columns.tolist()}")
-#                 return []
-#     except Exception as e:
-#         st.sidebar.error(f"Erreur: {str(e)}")
-#         import traceback
-#         st.sidebar.error(traceback.format_exc())
-#     return []
 
 
 @st.cache_data
